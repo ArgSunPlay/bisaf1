@@ -1,0 +1,30 @@
+--- project_management.md
++++ project_management.md
+@@ -48,7 +48,8 @@
+ | `PrintPage` | N/A | `/print/:shopId` | A4 Printable QR Poster | ✅ Fully functional PDF and PNG rendering with imported standard step images |
+ | `LandingPage` | N/A | `/` | B2B marketing landing page | ✅ |
+ | `LoginPage` | `COMP_AUTH`, `SRV_AUTH` | `/login` | User/Admin authentication | ✅ Compact OTP/Password form with Bale/Telegram quick registration priority. |
+-| `RegisterPage` | `COMP_AUTH`, `SRV_AUTH` | `/register` | New user signup | ✅ |
++| `RegisterPage` | `COMP_AUTH`, `SRV_AUTH` | `/register` | New user signup | ✅ Compact layout with clear marketer registration callout. |
++| `MarketerRegisterPage` | `SRV_AUTH`, `SRV_STORAGE` | `/marketer-register` | Dedicated marketer registration | ✅ Includes detailed guidelines, bank info, city, and national ID requirements. |
+ | `DatabaseStudioPage` | `SRV_STORAGE`, `UTIL_DB` | `/database-studio` | Developer Database GUI | ✅ Supabase JSON import/export & LocalStorage inspection. |
+ 
+ ---
+@@ -58,7 +59,7 @@
+ 
+ | Component Name | Description | Used In | State Type |
+ |---|---|---|---|
+-| `Navbar` | Top application header with mobile drawer menu | All Pages | Mobile Menu Toggle State, Theme Switcher |
++| `Navbar` | Top application header with mobile drawer menu | All Pages | Context title, Theme Switcher, Marketer cooperation link |
+ | `BottomNavigation` | Role-aware mobile sticky bottom bar | All Pages | Current active route state |
+ | `Sidebar` | Desktop-only left navigation menu | Dashboards | Current active route state |
+ | `Layout` | Wrapper for Navigation UI | App Root | N/A |
+@@ -107,7 +108,7 @@
+ | `PAGE_SHOPKEEPER_PANEL` | `users.role == 'shopkeeper'` | `shops.owner_id` (1:1) | 1 Shop (Active panel) | `activeTab` ('active', 'waiting', 'done', 'settings'), `queueStatusFilter` | `FN_CALL_NEXT`, `FN_COMPLETE`, `FN_SETTINGS` |
+ | `PAGE_OPERATOR_PANEL` | `users.role == 'shopkeeper'` | `shops.id` (1:1 with operator credentials) | 1 Shop (Active panel) | `activeTab` ('active', 'waiting', 'done'), `queueStatusFilter` | `FN_CALL_NEXT`, `FN_COMPLETE` (Restricted settings) |
+ | `PAGE_PUBLIC_SHOP` | `users` (Guest or logged in) | `shops.id` (1:1 public page) | 1 Shop | `bookingStatus` ('idle', 'loading', 'success', 'error'), `activeTab` ('queue', 'info') | `FN_BOOK_TICKET`, `FN_SYNC_QUEUE` |
+-| `PAGE_MARKETER_PANEL` | `users.role == 'marketer'` | `shops.marketer_id` (1:N) | N Shops (Portfolio) | `activeTab` ('overview', 'shops', 'earnings', 'settings') | `FN_CREATE_SHOP`, `FN_PRINT_QR` |
++| `PAGE_MARKETER_PANEL` | `users.role == 'marketer'` | `shops.marketer_id` (1:N) | N Shops (Portfolio) | `activeTab` ('overview', 'shops', 'earnings', 'settings') | `FN_CREATE_SHOP`, `FN_PRINT_QR`, Marketer detail sync with Admin |
+ | `PAGE_ADMIN` | `users.role == 'admin'` | Universal System Control | All entities | `activeTab` ('overview', 'shops', 'users', 'marketers', 'integrations', 'database') | `FN_MANAGE_SHOP`, `FN_MANAGE_USER`, `FN_ASSIGN_MARKETER`, `FN_SYNC_ENV`, `FN_SET_COMMISSION` |
+ | `PAGE_DATABASE_STUDIO` | `users.role == 'admin'` | Developer GUI tool | All raw local tables | `activeTab` ('overview', 'tables', 'queries', 'export') | `FN_RAW_DB_QUERY`, `FN_EXPORT_JSON` |
+ 
